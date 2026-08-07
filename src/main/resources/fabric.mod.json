@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "lodestonemod",
+  "version": "${version}",
+  "name": "Lodestone Coordinates",
+  "description": "Shows the dimension, coordinates, and distance a lodestone compass points to. 100% vibecoded by xwvi.",
+  "authors": [
+    "xwvi"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "modmenu": {
+    "badges": [
+      "client"
+    ]
+  },
+  "entrypoints": {
+    "client": [
+      "xwvi.lodestonemod.LodestoneModClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

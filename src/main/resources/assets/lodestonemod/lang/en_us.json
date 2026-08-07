@@ -1,7 +1,7 @@
 {
   "lodestonemod.tooltip.dimension": "Points to: %1$s",
-  "lodestonemod.tooltip.coords": "At: %1$s, %2$s, %3$s",
-  "lodestonemod.tooltip.distance": "Distance: %1$s blocks",
+  "lodestonemod.tooltip.coords": "%1$s, %2$s, %3$s",
+  "lodestonemod.tooltip.distance": "%1$s blocks away",
   "lodestonemod.tooltip.different_dimension": "Different dimension",
   "lodestonemod.tooltip.unbound": "Unbound"
 }

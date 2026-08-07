@@ -1,8 +1,6 @@
-# Lodestone Coordinates
+# Lodestone Compass Locator
 
-**Lodestone Coordinates** is a tiny client-side Fabric mod that shows exactly where a lodestone compass is pointing — right in the item tooltip.
-
-No more guessing. Hold a bound lodestone compass and instantly see its dimension, coordinates, and distance.
+Shows the location that a lodestone compass is bound to in the item tooltip.
 
 ## Preview
 
@@ -14,15 +12,15 @@ No more guessing. Hold a bound lodestone compass and instantly see its dimension
 
 ## Features
 
-- **Dimension** – which dimension the compass is bound to (Overworld, The Nether, The End, or any modded dimension)
-- **Coordinates** – the exact X, Y, Z of the bound lodestone
-- **Distance** – how far away the lodestone is, in blocks (when you're in the same dimension)
-- **Cross-dimension awareness** – clearly marks when the lodestone is in another dimension
-- **Unbound detection** – identifies compasses that have never been bound
+- Shows the **dimension** the compass is bound to, including modded dimensions.
+- Shows the **X, Y, Z** coordinates of the lodestone.
+- Shows **distance** in blocks when you're in the same dimension.
+- Flags when the compass points to a different dimension.
+- Marks compasses that don't point anywhere as "Unbound".
 
 ## How to use
 
-1. Bind a compass to a lodestone (right-click the lodestone with the compass).
+1. Bind a compass to a lodestone (right-click the lodestone with the compass), or pick up a compass that someone else bound.
 2. Hover over the compass in your inventory.
 3. Read the tooltip. That's it — no config, no commands.
 

@@ -1,41 +1,87 @@
-plugins {
-    id 'fabric-loom' version "${loom_version}"
-    id 'maven-publish'
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabricmc.net/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.fabricmc:fabric-loom:${loom_version}"
+    }
 }
+
+def mcVersion = project.findProperty('mc_version') ?: '26.2'
+
+def versionProps = new Properties()
+def versionFile = file("gradle/versions/${mcVersion}.properties")
+if (versionFile.exists()) {
+    versionFile.withInputStream { versionProps.load(it) }
+}
+
+def minecraftVersion = versionProps.getProperty('minecraft_version', mcVersion)
+def yarnMappings = versionProps.getProperty('yarn_mappings', '')
+def loaderVersion = versionProps.getProperty('loader_version', '0.19.3')
+def fabricVersion = versionProps.getProperty('fabric_version', '')
+def javaVersion = Integer.parseInt(versionProps.getProperty('java_version', '21'))
+def loomMode = versionProps.getProperty('loom_mode', 'remap')
+
+if (loomMode == 'noremap') {
+    apply plugin: 'net.fabricmc.fabric-loom'
+} else {
+    apply plugin: 'net.fabricmc.fabric-loom-remap'
+}
+apply plugin: 'maven-publish'
 
 version = project.mod_version
 group = project.maven_group
 
 base {
-    archivesName = project.archives_base_name
+    archivesName = "${project.archives_base_name}-${minecraftVersion}"
 }
 
 repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    minecraft "com.mojang:minecraft:${minecraftVersion}"
+
+    if (loomMode == 'remap') {
+        mappings "net.fabricmc:yarn:${yarnMappings}:v2"
+        modImplementation "net.fabricmc:fabric-loader:${loaderVersion}"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${fabricVersion}"
+    } else {
+        implementation "net.fabricmc:fabric-loader:${loaderVersion}"
+        implementation "net.fabricmc.fabric-api:fabric-api:${fabricVersion}"
+    }
+}
+
+sourceSets {
+    main {
+        if (loomMode == 'noremap') {
+            java.srcDirs = ['src/official/java']
+        } else {
+            java.srcDirs = ['src/main/java']
+        }
+        resources.srcDirs = ['src/main/resources']
+    }
 }
 
 processResources {
     inputs.property "version", project.version
+    inputs.property "minecraft_version", minecraftVersion
+    inputs.property "java_version", javaVersion
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": project.version, "minecraft_version": minecraftVersion, "java_version": javaVersion
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    it.options.release = 21
+    it.options.release = javaVersion
 }
 
 java {
     withSourcesJar()
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(javaVersion)
     }
 }
 

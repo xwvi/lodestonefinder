@@ -4,6 +4,14 @@
 
 No more guessing. Hold a bound lodestone compass and instantly see its dimension, coordinates, and distance.
 
+## Preview
+
+![showcase1](images/showcase1.png)
+![showcase2](images/showcase2.png)
+![showcase3](images/showcase3.png)
+![showcase4](images/showcase4.png)
+![showcase5](images/showcase5.png)
+
 ## Features
 
 - **Dimension** – which dimension the compass is bound to (Overworld, The Nether, The End, or any modded dimension)
